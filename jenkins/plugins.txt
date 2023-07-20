@@ -1,4 +1,7 @@
 configuration-as-code
+job-dsl
+workflow-aggregator
 pipeline-aws
 aws-credentials
 jenkins-cloudformation-plugin
+instance-identity
