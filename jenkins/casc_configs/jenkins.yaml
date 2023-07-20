@@ -1,0 +1,21 @@
+jenkins:
+  systemMessage: "Jenkins configured automatically by Jenkins Configuration as Code plugin\n\n"
+  numExecutors: 5
+  scmCheckoutRetryCount: 2
+  mode: NORMAL
+jobs:
+  - script: >
+      job('seed-job') {
+        scm {
+          git(System.getenv('GIT_REPO_URL'))
+        }
+        triggers {
+          scm('H/5 * * * *')
+        }
+        steps {
+          dsl {
+            external('jenkins/casc_configs/seedJob.groovy')
+            removeAction('DELETE')
+          }
+        }
+      }

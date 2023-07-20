@@ -4,6 +4,7 @@ services:
     container_name: jenkins_container
     environment:
       - GIT_REPO_URL=${GIT_REPO_URL}
+      - CASC_JENKINS_CONFIG=/var/jenkins_home/casc_configs
     build:
       context: ./jenkins
       dockerfile: Dockerfile
@@ -12,6 +13,7 @@ services:
       - 50000:50000
     volumes:
       - jenkins_home:/var/jenkins_home
+      - ./casc_configs:/var/jenkins_home/casc_configs
 volumes:
   jenkins_home:
     name: jenkins_home_volume

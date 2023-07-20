@@ -2,8 +2,8 @@
 
 - [x] Initiate Jenkins within a Docker container.
 - [x] Configure as code Jenkins initial plugins: configuration-as-code, pipeline-aws, aws-credentials, and jenkins-cloudformation-plugin.
-- [+] Organise Jenkins configuration into folder jenkins.
-- [-] Implement Hello World pipeline.
+- [x] Organise Jenkins configuration into folder jenkins.
+- [.] Implement Hello World pipeline.
 - [ ] Configure AWS credentials directly on the Jenkins server for secure access.
 - [ ] Define the Jenkins pipeline using a Jenkinsfile in the project root.
 - [ ] Create a GitHub repository for the project and configure webhook settings to trigger the Jenkins pipeline upon each push event.
