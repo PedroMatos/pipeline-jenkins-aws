@@ -1,5 +1,8 @@
 #!/bin/bash
 
+# Get the repo remote address to later use to configure the Jenkins job
+export GIT_REPO_URL=$(git config --get remote.origin.url)
+
 # Build the Docker image and start the Jenkins service
 docker-compose -f jenkins/docker-compose.yml up -d --build
 

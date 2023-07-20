@@ -1,13 +1,17 @@
-version: '3'
+version: '3.8'
 services:
   jenkins:
+    container_name: jenkins_container
+    environment:
+      - GIT_REPO_URL=${GIT_REPO_URL}
     build:
-      context: .
+      context: ./jenkins
       dockerfile: Dockerfile
     ports:
       - 8080:8080
       - 50000:50000
     volumes:
-      - ../jenkins_home:/var/jenkins_home
+      - jenkins_home:/var/jenkins_home
 volumes:
   jenkins_home:
+    name: jenkins_home_volume
