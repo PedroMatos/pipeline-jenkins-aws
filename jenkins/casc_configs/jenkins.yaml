@@ -1,13 +1,29 @@
 jenkins:
   systemMessage: "Jenkins configured automatically by Jenkins Configuration as Code plugin\n\n"
-  numExecutors: 5
+  numExecutors: 3
   scmCheckoutRetryCount: 2
   mode: NORMAL
+  securityRealm:
+    local:
+      allowsSignup: false
+      enableCaptcha: false
+      users:
+        - id: "admin"
+          password: "admin"
+  authorizationStrategy:
+    loggedInUsersCanDoAnything:
+      allowAnonymousRead: false
 jobs:
   - script: >
       job('seed-job') {
         scm {
-          git(System.getenv('GIT_REPO_URL'))
+          git {
+            remote {
+              url(System.getenv('GIT_REPO_URL'))
+              credentials('github_ssh_key')
+            }
+            branches('**')
+          }
         }
         triggers {
           scm('H/5 * * * *')
@@ -19,3 +35,27 @@ jobs:
           }
         }
       }
+
+credentials:
+  system:
+    domainCredentials:
+      - credentials:
+          - basicSSHUserPrivateKey:
+              scope: GLOBAL
+              id: "github_ssh_key"
+              username: "git"
+              privateKeySource:
+                directEntry:
+                  privateKey: ${SSH_PRIVATE_KEY}
+
+unclassified:
+  gitSCM:
+    globalConfigName: "jenkins"
+    globalConfigEmail: "jenkins@example.com"
+    createAccountBasedOnEmail: false
+    managingHooks: false
+    useExistingAccountWithSameEmail: false
+    accounts:
+      - gitUsernamePassword:
+          username: "git"
+          credentialsId: "github_ssh_key"
